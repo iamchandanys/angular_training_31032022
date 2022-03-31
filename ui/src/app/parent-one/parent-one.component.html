@@ -1,0 +1,40 @@
+<div style="padding: 20px;">
+
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="alert" [ngClass]="{'alert-success': alertDialogMessage, 'alert-danger': !alertDialogMessage}"
+                role="alert" *ngIf="isAlertDialogVisible">
+                {{alertDialogMessage}}
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div style="text-align: right;">
+                <button (click)="onClickAdd()">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <table style="width: 100%;">
+        <tr style="text-align: left;">
+            <th>ID</th>
+            <th>Name</th>
+            <th>Phone Number</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        <tr *ngFor="let dSource of dataSource">
+            <td>{{dSource.id}}</td>
+            <td>{{dSource.name}}</td>
+            <td>{{dSource.phoneno}}</td>
+            <td>{{dSource.email}}</td>
+            <td class="table-td" *ngFor="let aButtons of actionButtons">
+                <button [disabled]="aButtons.isDisabled"
+                    (click)="onClickAction(aButtons.actionType, dSource)">{{aButtons.name}}</button>
+            </td>
+        </tr>
+    </table>
+
+    <br /><br />
+
+    <app-child-one [actionButton]="dialogActionButton" (onPerformAction)="onPerformAction($event)"></app-child-one>
+</div>
